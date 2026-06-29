@@ -24,12 +24,20 @@ exports.googleAuthSuccess = (req, res) => {
   });
 };
 
+
 exports.logout = (req, res) => {
-  req.logout((err) => {
-    if (err) return res.status(500).json({ success: false, message: 'Logout failed' });
-    res.status(200).json({ success: true, message: 'Logged out successfully' });
+  if (req.logout) {
+    req.logout((err) => {
+      if (err) return res.status(500).json({ success: false, message: 'Logout error' });
+    });
+  }
+
+  res.status(200).json({
+    success: true,
+    message: 'Logged out successfully. Please clear your token from local storage / Postman.'
   });
 };
+
 
 
 
